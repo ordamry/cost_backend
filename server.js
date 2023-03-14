@@ -33,10 +33,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(logger('dev'));
 
-app.use("/api/users", userRoute);
-app.use("/api/costs", costRoute);
-app.use("/api/categories", categoryRoute);
-app.use("/api/report", reportRoute);
+app.use("/users", userRoute);
+app.use("/costs", costRoute);
+app.use("/categories", categoryRoute);
+app.use("/report", reportRoute);
 
 const PORT = process.env.PORT || 5000;
 
