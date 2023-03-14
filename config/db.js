@@ -8,7 +8,7 @@ const mongoose = require("mongoose");
 const connectDB = async () => {
   mongoose.set('strictQuery', false);
   try {
-    const conn = await mongoose.connect("mongodb+srv://admin:<!admin123!>@costmanager.p2x7kgx.mongodb.net/?retryWrites=true&w=majority", {
+    const conn = await mongoose.connect("mongodb+srv://admin:!admin123!@costmanager.p2x7kgx.mongodb.net/?retryWrites=true&w=majority", {
       useUnifiedTopology: true,
       useNewUrlParser: true,
     })
