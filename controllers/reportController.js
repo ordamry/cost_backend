@@ -6,7 +6,6 @@ Idit oksman - 207379769
 const { Cost } = require("../models/cost");
 const ObjectId = require("mongoose").Types.ObjectId;
 const moment = require('moment');
-const { User } = require("../models/user");
 
 const getReport = async (req, res) => {
   const { userId, year, month } = req.query;
@@ -24,12 +23,11 @@ const getReport = async (req, res) => {
   let user;
   try {
     if (userId !== "") {
-      user = await User.find({ id: userId }).limit(1);
       if (startOfMonth !== "" && endOfMonth !== "") {
         report = await Cost.aggregate([
           {
             $match: {
-              user_id: new ObjectId(user[0]._id),
+              user_id: userId,
               date: { $gte: new Date(startOfMonth), $lte: new Date(endOfMonth) },
             },
           },
@@ -61,7 +59,7 @@ const getReport = async (req, res) => {
       } else {
         report = await Cost.aggregate([
           {
-            $match: { user_id: new ObjectId(user[0]._id) },
+            $match: { user_id: userId },
           },
           {
             $lookup: {

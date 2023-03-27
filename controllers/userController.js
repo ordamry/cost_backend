@@ -84,9 +84,17 @@ const deleteUser = async (req, res) => {
 const getOneUser = async (req, res) => {
   const { user_id } = req.params;
   try {
-    const user = await User.findById({ _id: user_id });
-
-    res.status(200).send(user);
+    const user = await User.find({ id: user_id });
+    const resData = {
+      id: user[0].id,
+      first_name: user[0].first_name,
+      last_name: user[0].last_name,
+      birthday: moment(user[0].birthday).format("MMMM DD, YYYY"),
+      email: user[0].email,
+      role: user[0].role,
+    }
+    
+    res.status(200).send(resData);
   } catch (error) {
     res.status(500).send({
       status: "error",

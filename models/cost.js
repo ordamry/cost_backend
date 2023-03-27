@@ -12,11 +12,12 @@ const costSchema = mongoose.Schema({
     required: true,
     ref: "Category",
   },
-  user_id: {
+  userId: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
     ref: "User",
   },
+  user_id: { type: Number, required: true, default: 0.0 },
   description: { type: String },
   sum: { type: Number, required: true, default: 0.0 },
   date: { type: Date, required: true },

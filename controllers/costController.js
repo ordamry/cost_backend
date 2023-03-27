@@ -9,7 +9,7 @@ const moment = require("moment");
 // all cost data get
 const getCosts = async (req, res) => {
   const costs = await Cost.find()
-    .populate("user_id", ["first_name", "last_name"])
+    .populate("userId", ["first_name", "last_name"])
     .populate("category", "name");
   res.status(200).send(costs);
 };
@@ -17,15 +17,16 @@ const getCosts = async (req, res) => {
 // create cost data
 const createCost = async (req, res) => {
   const { category, description, sum, date } = req.body;
-  const { _id } = req.user;
+  const { _id, id } = req.user;
   const cost = Cost({
     category: category,
-    user_id: _id,
+    userId: _id,
+    user_id: id,
     description: description,
     sum: sum,
     date: date,
     day: moment(date).format("D"),
-    month: moment(date).month(),
+    month: moment(date).month() + 1,
     year: moment(date).year(),
   });
   await cost.save();
@@ -36,16 +37,17 @@ const createCost = async (req, res) => {
 const updateCost = async (req, res) => {
   const { costId } = req.params;
   const { category, description, sum, date } = req.body;
-  const { _id } = req.user;
+  const { _id, id } = req.user;
   try {
     const oldCost = await Cost.findById({ _id: costId });
     oldCost.category = category;
-    oldCost.user_id = _id;
+    oldCost.userId = _id;
+    oldCost.user_id = id;
     oldCost.description = description;
     oldCost.sum = sum;
     oldCost.date = date;
     oldCost.day = moment(date).format("D"),
-    oldCost.month = moment(date).month();
+    oldCost.month = moment(date).month() + 1;
     oldCost.year = moment(date).year();
     oldCost.updateAt = Date.now();
     await oldCost.save();
