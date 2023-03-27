@@ -3,12 +3,12 @@ Submitted by:
 Or damri - 316441088
 Idit oksman - 207379769
 */
-var express = require('express');
-require('dotenv').config()
-const logger = require('morgan');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const colors = require('colors');
+var express = require("express");
+require("dotenv").config();
+const logger = require("morgan");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const colors = require("colors");
 const { connectDB } = require("./config/db");
 
 //routes
@@ -31,18 +31,18 @@ app.use(bodyParser.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(logger('dev'));
+app.use(logger("dev"));
 
 app.use("/users", userRoute);
-app.use("/costs", costRoute);
+app.use("/addcost", costRoute);
 app.use("/categories", categoryRoute);
 app.use("/report", reportRoute);
 
 const PORT = process.env.PORT || 5000;
 
 app.listen(
-    PORT,
-    console.log(
-        colors.yellow.bold(`Server running on port http://localhost:${PORT}`)
-    )
-)
+  PORT,
+  console.log(
+    colors.yellow.bold(`Server running on port http://localhost:${PORT}`)
+  )
+);
