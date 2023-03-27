@@ -9,7 +9,7 @@ const connectDB = async () => {
   mongoose.set("strictQuery", false);
   try {
     const conn = await mongoose.connect(
-      "mongodb://127.0.0.1/costManager",
+      "mongodb+srv://admin:!admin123!@costmanager.p2x7kgx.mongodb.net/costManager?retryWrites=true&w=majority",
       {
         useUnifiedTopology: true,
         useNewUrlParser: true,
