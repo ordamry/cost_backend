@@ -12,6 +12,7 @@ const colors = require("colors");
 const { connectDB } = require("./config/db");
 
 //routes
+const urlRoute = require("./routes/index");
 const userRoute = require("./routes/userRoute.js");
 const costRoute = require("./routes/costRoute.js");
 const categoryRoute = require("./routes/categoryRoute.js");
@@ -33,10 +34,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(logger("dev"));
 
-app.use("/users", userRoute);
-app.use("/addcost", costRoute);
-app.use("/categories", categoryRoute);
-app.use("/report", reportRoute);
+app.use("/", urlRoute);
 
 const PORT = process.env.PORT || 5000;
 

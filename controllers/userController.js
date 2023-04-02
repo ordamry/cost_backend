@@ -6,7 +6,7 @@ Idit oksman - 207379769
 const bcrypt = require("bcryptjs");
 const { User } = require("../models/user");
 const { generateToken } = require("../utils/generateToken");
-const moment = require('moment');
+const moment = require("moment");
 
 // login user
 const login = async (req, res) => {
@@ -41,7 +41,7 @@ const register = async (req, res) => {
     email: email,
     password: password,
     role: "user",
-  }
+  };
 
   const user = await User.create(userData);
 
@@ -92,14 +92,29 @@ const getOneUser = async (req, res) => {
       birthday: moment(user[0].birthday).format("MMMM DD, YYYY"),
       email: user[0].email,
       role: user[0].role,
-    }
-    
+    };
+
     res.status(200).send(resData);
   } catch (error) {
     res.status(500).send({
       status: "error",
       message: error.message,
     });
+  }
+};
+
+const about = async (req, res) => {
+  const user = await User.findById(req.user._id);
+  if (user) {
+    res.json({
+      id: user.id,
+      first_name: user.first_name,
+      last_name: user.last_name,
+      email: user.email,
+    });
+  } else {
+    res.status(404);
+    throw new Error("User not found");
   }
 };
 
@@ -176,4 +191,5 @@ module.exports = {
   updateUser,
   updateProfile,
   getUserProfile,
+  about,
 };
